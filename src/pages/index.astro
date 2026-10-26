@@ -1,927 +1,707 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/siteConfig';
-
-const defaultLens = siteConfig.identities[0];
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout>
   <!-- ============================================================================
-       FLOATING STYLE STUDIO SWITCHER (底部悬浮多风格实时切换工作台)
+       FLOATING BENTO VERSION SWITCHER (底部悬浮：4 种 Bento 细分风格切换器)
        ============================================================================ -->
   <div
-    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl bg-[#141413]/95 text-[#F7F6F2] backdrop-blur-md border border-[#383835] shadow-2xl p-2 sm:px-4 sm:py-2.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl bg-[#141413]/95 text-[#F7F6F2] backdrop-blur-md border border-white/15 shadow-2xl p-2 sm:px-4 sm:py-2.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2"
     role="region"
-    aria-label="主页视觉风格实时预览切换器"
+    aria-label="Bento 风格版本切换器"
   >
     <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-      <span class="w-2 h-2 rounded-full bg-[#D8FF38] status-dot"></span>
-      <span class="text-[#D8FF38] font-semibold">风格预览器</span>
-      <span class="hidden md:inline text-[#A09E97]">（按数字键 1-4 也可切换）</span>
+      <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+      <span class="text-white font-semibold">Bento 风格预览</span>
+      <span class="hidden md:inline text-[#A09E97]">（按键 1-4 切换）</span>
     </div>
 
     <div class="grid grid-cols-4 gap-1.5 w-full sm:w-auto" role="tablist">
       <button
         type="button"
-        data-style-target="editorial"
-        class="style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#D8FF38] text-[#141413]"
+        data-bento-target="v1"
+        class="bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-white text-[#141413]"
       >
-        1. 瑞士画册
+        1. 暖陶松林
       </button>
       <button
         type="button"
-        data-style-target="bento"
-        class="style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
+        data-bento-target="v2"
+        class="bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
       >
-        2. 便当盒Bento
+        2. 曜石暗夜
       </button>
       <button
         type="button"
-        data-style-target="terminal"
-        class="style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
+        data-bento-target="v3"
+        class="bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
       >
-        3. 极客终端
+        3. 纯白侧栏
       </button>
       <button
         type="button"
-        data-style-target="poster"
-        class="style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
+        data-bento-target="v4"
+        class="bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]"
       >
-        4. 先锋海报
+        4. 柔雾玻璃
       </button>
     </div>
   </div>
 
   <!-- ============================================================================
-       STYLE 1: SWISS MONOGRAPH (瑞士独立画册 / 杂志风)
+       VERSION 1: 暖陶松林 · WARM CLAY & PINE (原版 Bento 升级版)
        ============================================================================ -->
-  <div id="style-panel-editorial" class="style-panel max-w-7xl mx-auto px-4 sm:px-8 pb-24">
-    <!-- SECTION 1: EDITORIAL COVER SPREAD -->
-    <section id="about" class="py-12 sm:py-20 border-b border-rule">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        <div class="lg:col-span-7 space-y-8">
-          <div class="space-y-3">
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="inline-flex items-center gap-2 px-3 py-1 bg-surface border border-rule text-xs font-mono">
-                <span class="w-2 h-2 rounded-full bg-[#D8FF38] border border-ink status-dot"></span>
-                <span>{siteConfig.status}</span>
-              </span>
-              <span class="font-mono text-xs text-muted">
-                STYLE 01 · SWISS EDITORIAL MONOGRAPH
-              </span>
-            </div>
+  <div id="bento-panel-v1" class="bento-panel bento-v1-bg min-h-screen pb-28">
+    <!-- Top Floating Pill Navigation Directory -->
+    <header class="sticky top-4 z-30 max-w-6xl mx-auto px-4 sm:px-8 pt-2">
+      <div class="bg-white/90 backdrop-blur-md border border-black/5 rounded-full px-5 py-3 shadow-sm flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2.5 font-bold text-sm tracking-tight">
+          <span class="w-7 h-7 rounded-full bg-[#0F5243] text-white flex items-center justify-center text-xs font-serif">
+            {siteConfig.name}
+          </span>
+          <span>{siteConfig.handle}</span>
+        </a>
 
-            <div class="pt-2">
-              <p class="font-mono text-xs text-muted tracking-wide">
-                PERSONAL MONOGRAPH &amp; DIGITAL GARDEN OF
-              </p>
-              <h1 class="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <span class="editorial-display text-5xl sm:text-7xl font-normal tracking-tight">
-                  {siteConfig.name}
-                </span>
-                <span class="font-serif text-3xl sm:text-5xl font-semibold text-cobalt">
-                  {siteConfig.nameCn}
-                </span>
-              </h1>
-            </div>
-          </div>
-
-          <div class="space-y-3">
-            <div class="text-xs font-mono text-muted">
-              切换视角以查看不同维度的工作重心：
-            </div>
-            <div role="tablist" aria-label="身份视角切换" class="flex flex-wrap gap-2">
-              {
-                siteConfig.identities.map((lens, idx) => (
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={idx === 0 ? 'true' : 'false'}
-                    data-lens-id={lens.id}
-                    data-lens-headline={lens.headline}
-                    data-lens-manifesto={lens.manifesto}
-                    data-lens-highlights={JSON.stringify(lens.highlights)}
-                    class="lens-tab px-3.5 py-1.5 text-xs sm:text-sm font-medium border border-rule bg-surface hover:border-ink transition-all"
-                  >
-                    {lens.label}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-
-          <div class="space-y-5 pt-1">
-            <h2
-              id="hero-headline"
-              class="font-serif text-2xl sm:text-4xl leading-snug font-normal text-ink transition-opacity duration-200"
-            >
-              {defaultLens.headline}
-            </h2>
-            <p
-              id="hero-manifesto"
-              class="text-base sm:text-lg text-muted leading-relaxed max-w-2xl transition-opacity duration-200"
-            >
-              {defaultLens.manifesto}
-            </p>
-            <div id="hero-highlights" class="flex flex-wrap gap-2 pt-1">
-              {
-                defaultLens.highlights.map((tag) => (
-                  <span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper text-ink">
-                    {tag}
-                  </span>
-                ))
-              }
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5">
-          <div class="border border-ink bg-surface p-6 sm:p-8 relative">
-            <div class="flex items-start justify-between border-b border-rule pb-5">
-              <div>
-                <p class="font-mono text-xs text-muted">INDEX CARD</p>
-                <p class="font-serif text-2xl mt-0.5">Creator Dossier</p>
-              </div>
-              <span class="font-mono text-xs px-2.5 py-1 bg-[#D8FF38] text-[#141413] font-medium border border-[#141413]">
-                VERIFIED · 2026
-              </span>
-            </div>
-
-            <div class="my-6 border border-rule bg-paper p-5 relative overflow-hidden">
-              <svg viewBox="0 0 400 170" class="w-full h-36 sm:h-40" aria-hidden="true">
-                <line x1="0" y1="35" x2="400" y2="35" stroke="currentColor" stroke-opacity="0.12" />
-                <line x1="0" y1="85" x2="400" y2="85" stroke="currentColor" stroke-opacity="0.12" />
-                <line x1="0" y1="135" x2="400" y2="135" stroke="currentColor" stroke-opacity="0.12" />
-                <line x1="90" y1="0" x2="90" y2="170" stroke="currentColor" stroke-opacity="0.12" />
-                <line x1="260" y1="0" x2="260" y2="170" stroke="currentColor" stroke-opacity="0.12" />
-                <circle cx="90" cy="85" r="56" fill="none" stroke="var(--accent-cobalt)" stroke-width="2.5" />
-                <circle cx="90" cy="85" r="24" fill="var(--accent-cobalt)" />
-                <rect x="236" y="42" width="88" height="86" fill="#D8FF38" stroke="#141413" stroke-width="1.5" />
-                <text x="250" y="92" font-family="Instrument Serif, serif" font-size="34" font-style="italic" fill="#141413">
-                  Aa / 格
-                </text>
-                <path d="M 146 85 C 185 85, 195 60, 236 60" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4" />
-              </svg>
-              <div class="flex justify-between items-center text-[11px] font-mono text-muted pt-2 border-t border-rule">
-                <span>FIG 1.0 — FORM &amp; COMPUTATION</span>
-                <span>SCALE 1:1</span>
-              </div>
-            </div>
-
-            <dl class="space-y-3 text-sm border-b border-rule pb-5">
-              <div class="flex justify-between py-1 border-b border-rule/60">
-                <dt class="font-mono text-xs text-muted">主力方向</dt>
-                <dd class="font-medium text-right">全栈产品工程 / 视觉设计系统</dd>
-              </div>
-              <div class="flex justify-between py-1 border-b border-rule/60">
-                <dt class="font-mono text-xs text-muted">技术偏好</dt>
-                <dd class="font-mono text-xs text-right">Astro · React · TypeScript · Rust</dd>
-              </div>
-              <div class="flex justify-between py-1">
-                <dt class="font-mono text-xs text-muted">所在城市</dt>
-                <dd class="font-medium text-right">{siteConfig.location}</dd>
-              </div>
-            </dl>
-
-            <div class="pt-5 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onclick={`window.copySiteEmail('${siteConfig.email}')`}
-                class="flex-1 min-w-[160px] px-4 py-2.5 bg-ink text-paper text-xs sm:text-sm font-mono font-medium hover:bg-cobalt hover:text-white transition-colors text-center"
-              >
-                复制邮箱 · {siteConfig.email}
-              </button>
-              <a
-                href="#works"
-                class="px-4 py-2.5 border border-ink text-xs sm:text-sm font-mono font-medium hover:bg-ink hover:text-paper transition-colors"
-              >
-                浏览作品集 ↓
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 2: SELECTED WORKS -->
-    <section id="works" class="py-16 sm:py-24 border-b border-rule">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-rule">
-        <div>
-          <p class="font-mono text-xs text-cobalt">SELECTED ARCHIVE · 2025—2026</p>
-          <h2 class="editorial-display text-4xl sm:text-6xl mt-1">
-            代表作品与实验项目
-          </h2>
-        </div>
-
-        <div class="flex flex-wrap gap-2" role="group" aria-label="作品分类筛选">
-          <button type="button" aria-pressed="true" data-filter="all" class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors">
-            全部作品 ({siteConfig.projects.length})
-          </button>
-          <button type="button" aria-pressed="false" data-filter="design" class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors">
-            设计系统 · Design
-          </button>
-          <button type="button" aria-pressed="false" data-filter="ai" class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors">
-            AI 与工具 · Agent
-          </button>
-          <button type="button" aria-pressed="false" data-filter="engineering" class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors">
-            创意工程 · Engineering
-          </button>
-        </div>
-      </div>
-
-      <div class="divide-y divide-rule">
-        {
-          siteConfig.projects.map((project) => (
-            <article
-              data-project-category={project.category}
-              class="project-item py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
-            >
-              <div class="lg:col-span-5">
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block border border-rule bg-surface p-6 group-hover:border-ink transition-colors relative overflow-hidden"
-                >
-                  <div class="flex items-center justify-between text-xs font-mono text-muted mb-4">
-                    <span>{project.index}</span>
-                    <span class="px-2 py-0.5 border border-rule bg-paper text-ink">
-                      {project.categoryLabel}
-                    </span>
-                  </div>
-
-                  <div class="h-44 bg-paper border border-rule flex items-center justify-center p-4 overflow-hidden">
-                    {project.visualType === 'type-specimen' && (
-                      <svg viewBox="0 0 360 180" class="w-full h-full">
-                        <rect x="16" y="16" width="328" height="148" fill="none" stroke="currentColor" stroke-opacity="0.2" />
-                        <line x1="16" y1="64" x2="344" y2="64" stroke="var(--accent-cobalt)" stroke-width="1" stroke-dasharray="3 3" />
-                        <line x1="16" y1="128" x2="344" y2="128" stroke="var(--accent-cobalt)" stroke-width="1" stroke-dasharray="3 3" />
-                        <text x="32" y="118" font-family="Instrument Serif, serif" font-size="78" fill="currentColor">Editorial</text>
-                        <rect x="258" y="28" width="68" height="24" fill="#D8FF38" stroke="#141413" />
-                        <text x="268" y="44" font-family="JetBrains Mono, monospace" font-size="11" fill="#141413">GRID 12X</text>
-                      </svg>
-                    )}
-                    {project.visualType === 'neural-topology' && (
-                      <svg viewBox="0 0 360 180" class="w-full h-full">
-                        <path d="M 55 90 Q 140 25, 210 90 T 310 65" fill="none" stroke="var(--accent-cobalt)" stroke-width="2" />
-                        <path d="M 55 90 Q 140 155, 210 90 T 310 125" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5" />
-                        <circle cx="55" cy="90" r="14" fill="#D8FF38" stroke="#141413" stroke-width="2" />
-                        <circle cx="155" cy="56" r="9" fill="var(--accent-cobalt)" />
-                        <circle cx="210" cy="90" r="16" fill="currentColor" />
-                        <circle cx="310" cy="65" r="11" fill="#D8FF38" stroke="#141413" stroke-width="2" />
-                      </svg>
-                    )}
-                    {project.visualType === 'audio-synth' && (
-                      <svg viewBox="0 0 360 180" class="w-full h-full">
-                        {Array.from({ length: 18 }).map((_, i) => {
-                          const h = 24 + ((i * 37) % 100);
-                          const y = 90 - h / 2;
-                          return (
-                            <rect
-                              x={28 + i * 17}
-                              y={y}
-                              width="9"
-                              height={h}
-                              fill={i % 4 === 0 ? 'var(--accent-cobalt)' : i % 7 === 0 ? '#D8FF38' : 'currentColor'}
-                              opacity={i % 4 === 0 || i % 7 === 0 ? '1' : '0.22'}
-                            />
-                          );
-                        })}
-                      </svg>
-                    )}
-                    {project.visualType === 'kinetic-grid' && (
-                      <svg viewBox="0 0 360 180" class="w-full h-full">
-                        <rect x="40" y="24" width="110" height="132" fill="none" stroke="currentColor" stroke-width="1.5" />
-                        <rect x="150" y="24" width="110" height="132" fill="var(--accent-cobalt)" fill-opacity="0.12" stroke="var(--accent-cobalt)" stroke-width="1.5" />
-                        <rect x="210" y="44" width="105" height="92" fill="#D8FF38" stroke="#141413" stroke-width="1.5" />
-                        <text x="56" y="75" font-family="Instrument Serif, serif" font-size="28" fill="currentColor">MD</text>
-                        <text x="228" y="96" font-family="Instrument Serif, serif" font-size="28" fill="#141413">PDF / 印</text>
-                      </svg>
-                    )}
-                  </div>
-                </a>
-              </div>
-
-              <div class="lg:col-span-7 space-y-4">
-                <div class="flex items-center gap-3 font-mono text-xs text-muted">
-                  <span>{project.index}</span>
-                  <span>/</span>
-                  <span>{project.year}</span>
-                </div>
-                <h3 class="font-serif text-3xl sm:text-4xl font-normal tracking-tight">
-                  {project.title}
-                </h3>
-                <p class="text-base sm:text-lg font-medium text-ink/90">{project.subtitle}</p>
-                <p class="text-muted leading-relaxed text-sm sm:text-base max-w-2xl">{project.summary}</p>
-                <div class="inline-block px-3.5 py-1.5 bg-surface border-l-2 border-cobalt text-xs sm:text-sm font-medium">
-                  {project.impact}
-                </div>
-                <div class="pt-2 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- SECTION 3: FIELD NOTES -->
-    <section id="notes" class="py-16 sm:py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div class="lg:col-span-4 space-y-4">
-          <p class="font-mono text-xs text-cobalt">FIELD NOTES &amp; ESSAYS</p>
-          <h2 class="editorial-display text-4xl sm:text-5xl">思考札记与长文专栏</h2>
-          <p class="text-sm sm:text-base text-muted leading-relaxed">
-            点击任意文章即可进入沉浸式双栏杂志阅读页。
-          </p>
-        </div>
-        <div class="lg:col-span-8 divide-y divide-rule border-t border-b border-rule">
+        <nav aria-label="主目录" class="hidden sm:flex items-center gap-1">
           {
-            siteConfig.notes.map((note) => (
-              <article class="py-7 group">
-                <a href={`${base}/notes/${note.slug}`} class="block space-y-2.5">
-                  <div class="flex items-center justify-between font-mono text-xs text-muted">
-                    <span>{note.category} · {note.readingTime}</span>
-                    <time>{note.date}</time>
-                  </div>
-                  <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-cobalt transition-colors">
-                    {note.title}
-                  </h3>
-                  <p class="text-sm text-muted leading-relaxed">{note.excerpt}</p>
-                </a>
-              </article>
+            siteConfig.nav.map((item) => (
+              <a
+                href={`#v1-${item.id}`}
+                class="px-3.5 py-1.5 rounded-full text-xs font-medium text-[#5A5852] hover:bg-[#F2EFE9] hover:text-[#161615] transition-colors"
+              >
+                {item.label}
+              </a>
             ))
           }
-        </div>
-      </div>
-    </section>
-  </div>
+        </nav>
 
-  <!-- ============================================================================
-       STYLE 2: TACTILE BENTO STUDIO (现代便当盒卡片画廊风 — Apple / Read.cv 质感)
-       ============================================================================ -->
-  <div id="style-panel-bento" class="style-panel hidden bg-[#ECE9E2] text-[#181816] min-h-screen py-10 sm:py-16 pb-28">
-    <div class="max-w-6xl mx-auto px-4 sm:px-8 space-y-6">
-      <!-- Top Style Badge -->
-      <div class="flex items-center justify-between">
-        <span class="px-3.5 py-1 rounded-full bg-white border border-black/10 text-xs font-medium shadow-sm">
-          ✨ 风格二：Tactile Bento Studio（苹果便当盒 / 模块化数字名片）
-        </span>
-        <span class="text-xs font-mono text-[#6E6C65]">ROUNDED MODULAR MATRIX</span>
+        <a
+          href={siteConfig.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3.5 py-1.5 rounded-full bg-[#161615] text-white text-xs font-medium hover:bg-[#0F5243] transition-colors"
+        >
+          GitHub ↗
+        </a>
       </div>
+    </header>
 
-      <!-- Primary Bento Grid (12 Columns) -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
-        <!-- Bento Tile 1: Bio & Avatar Hero (7 cols) -->
-        <div class="bento-card md:col-span-7 p-7 sm:p-9 flex flex-col justify-between space-y-6">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3.5">
-              <div class="w-14 h-14 rounded-2xl bg-[#0F5243] text-white flex items-center justify-center font-serif text-2xl font-bold shadow-md">
-                {siteConfig.nameCn.slice(0, 1)}
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-8 space-y-6">
+      <!-- Row 1: Hero Profile Card (7 cols) + Status & Quick Info (5 cols) -->
+      <section id="v1-about" class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <!-- Main Profile Tile -->
+        <div class="bento-v1-card md:col-span-7 p-7 sm:p-9 flex flex-col justify-between space-y-8">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-[#0F5243] text-white flex items-center justify-center font-serif text-3xl font-bold shadow-sm">
+                {siteConfig.name}
               </div>
               <div>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">
-                  {siteConfig.nameCn} · {siteConfig.name}
+                <span class="text-xs font-mono text-[#78756E]">ABOUT / 个人简介</span>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mt-0.5">
+                  {siteConfig.name} · {siteConfig.handle}
                 </h1>
-                <p class="text-xs sm:text-sm text-[#686660]">
-                  Independent Product Engineer &amp; Design Technologist
-                </p>
               </div>
             </div>
-            <span class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6F4EA] text-[#0F5243] text-xs font-medium">
-              <span class="w-2 h-2 rounded-full bg-[#0F5243]"></span>
-              Available
+            <span class="px-3 py-1 rounded-full bg-[#E6F4EA] text-[#0F5243] text-xs font-medium">
+              个人主页
             </span>
           </div>
 
-          <div class="space-y-3">
-            <h2 class="text-xl sm:text-2xl font-semibold leading-snug text-[#141413]">
-              {defaultLens.headline}
-            </h2>
-            <p class="text-sm sm:text-base text-[#5A5852] leading-relaxed">
-              {defaultLens.manifesto}
+          <!-- Empty State Bio Area -->
+          <div class="bento-v1-slot p-6 space-y-2">
+            <div class="text-xs font-mono text-[#78756E]">BIO / 一句话简介与个人介绍</div>
+            <p class="text-sm sm:text-base text-[#5A5852]">
+              {siteConfig.bio || '暂未填写个人简介 — 可在 src/data/siteConfig.ts 中填入你的自我介绍、研究方向或个人标签。'}
             </p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              type="button"
-              onclick={`window.copySiteEmail('${siteConfig.email}')`}
-              class="px-5 py-2.5 rounded-full bg-[#141413] text-white text-xs sm:text-sm font-medium hover:bg-[#0F5243] transition-colors"
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-full bg-[#F4F2ED] text-[#686660] text-xs font-mono">
+                # 标签待添加
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-[#F4F2ED] text-[#686660] text-xs font-mono">
+                # 领域待添加
+              </span>
+            </div>
+            <a
+              href={siteConfig.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-mono text-[#0F5243] font-semibold hover:underline"
             >
-              复制邮箱 · {siteConfig.email}
-            </button>
-            {
-              siteConfig.socials.slice(0, 3).map((s) => (
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-4 py-2.5 rounded-full bg-[#F5F3EE] hover:bg-[#E5E1D8] text-xs sm:text-sm font-medium transition-colors"
-                >
-                  {s.label}
-                </a>
-              ))
-            }
+              github.com/{siteConfig.handle} ↗
+            </a>
           </div>
         </div>
 
-        <!-- Bento Tile 2: Location & Metrics (5 cols) -->
-        <div class="md:col-span-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-5">
-          <!-- Map / Status Pill Card -->
-          <div class="bento-card p-6 bg-gradient-to-br from-[#0F5243] to-[#09352B] text-white flex flex-col justify-between">
-            <div class="flex items-center justify-between text-xs opacity-80 font-mono">
-              <span>BASE COORDINATES</span>
-              <span>{siteConfig.location}</span>
+        <!-- Right Column: Now & Metrics Slots (5 cols) -->
+        <div id="v1-now" class="md:col-span-5 grid grid-cols-1 gap-5">
+          <!-- Forest Pine Card: Now / Current Status -->
+          <div class="bento-v1-card p-7 bg-gradient-to-br from-[#0F5243] to-[#09352B] text-white flex flex-col justify-between space-y-5">
+            <div class="flex items-center justify-between text-xs font-mono opacity-80">
+              <span>NOW / 当下状态</span>
+              <span>STATUS</span>
             </div>
-            <div class="my-4">
-              <p class="text-xs uppercase tracking-wider opacity-75">Current Focus</p>
-              <p class="text-base sm:text-lg font-medium mt-1 leading-snug">
-                {siteConfig.nowSlice.building}
+            <div class="py-2">
+              <p class="text-xs uppercase tracking-wider opacity-70">近期动态</p>
+              <p class="text-base sm:text-lg font-medium mt-1.5 leading-relaxed opacity-90">
+                {siteConfig.status || '暂无近期状态记录（待添加）'}
               </p>
             </div>
-            <div class="flex items-center justify-between text-xs pt-3 border-t border-white/15">
-              <span>Reading: {siteConfig.nowSlice.reading.split('—')[0]}</span>
-              <span class="px-2 py-0.5 rounded-full bg-white/20">2026</span>
+            <div class="flex items-center justify-between text-xs pt-3 border-t border-white/15 opacity-80 font-mono">
+              <span>坐标：{siteConfig.location || '待填写'}</span>
+              <span>2026</span>
             </div>
           </div>
 
-          <!-- Numbers Strip Card -->
-          <div class="bento-card p-6 grid grid-cols-3 gap-3 items-center text-center">
-            {
-              siteConfig.nowSlice.metrics.map((m) => (
-                <div class="p-2 rounded-2xl bg-[#F7F5F0]">
-                  <div class="text-xl sm:text-2xl font-bold text-[#FF5A26]">{m.value}</div>
-                  <div class="text-xs text-[#686660] mt-1">{m.label}</div>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-
-        <!-- Bento Projects Section (2x2 Grid of Rounded Cards) -->
-        {
-          siteConfig.projects.map((project, idx) => (
-            <div class="bento-card md:col-span-6 p-6 sm:p-7 flex flex-col justify-between space-y-5">
-              <div class="flex items-center justify-between">
-                <span
-                  class={`px-3 py-1 rounded-full text-xs font-medium ${
-                    idx % 2 === 0
-                      ? 'bg-[#FFF0EB] text-[#FF5A26]'
-                      : 'bg-[#E6F4EA] text-[#0F5243]'
-                  }`}
-                >
-                  {project.categoryLabel} · {project.year}
-                </span>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-9 h-9 rounded-full bg-[#F4F2ED] hover:bg-[#141413] hover:text-white flex items-center justify-center transition-colors text-sm"
-                >
-                  ↗
-                </a>
-              </div>
-
-              <div class="space-y-2">
-                <h3 class="text-xl sm:text-2xl font-bold tracking-tight">{project.title}</h3>
-                <p class="text-sm font-medium text-[#3A3935]">{project.subtitle}</p>
-                <p class="text-xs sm:text-sm text-[#6E6C65] leading-relaxed">{project.summary}</p>
-              </div>
-
-              <div class="pt-2 flex flex-wrap gap-1.5">
-                {project.tech.map((t) => (
-                  <span class="px-2.5 py-1 rounded-lg bg-[#F4F2ED] text-[#45443F] text-xs font-mono">
-                    {t}
-                  </span>
-                ))}
-              </div>
+          <!-- Directory Summary Card -->
+          <div class="bento-v1-card p-6 grid grid-cols-3 gap-3 text-center">
+            <div class="p-3 rounded-2xl bg-[#F7F5F0]">
+              <div class="text-xl font-bold text-[#0F5243]">{siteConfig.projects.length}</div>
+              <div class="text-xs text-[#686660] mt-1">作品项目</div>
             </div>
-          ))
-        }
-
-        <!-- Bento Blog / Notes Full-Width Tile (12 cols) -->
-        <div class="bento-card md:col-span-12 p-7 sm:p-9 space-y-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-xl sm:text-2xl font-bold">思考笔记与专栏文章</h2>
-              <p class="text-xs sm:text-sm text-[#6E6C65]">近期发布的工程与设计随笔</p>
+            <div class="p-3 rounded-2xl bg-[#F7F5F0]">
+              <div class="text-xl font-bold text-[#FF5A26]">{siteConfig.notes.length}</div>
+              <div class="text-xs text-[#686660] mt-1">文章笔记</div>
             </div>
-            <span class="px-3 py-1 rounded-full bg-[#F4F2ED] text-xs font-mono">
-              {siteConfig.notes.length} ARTICLES
-            </span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {
-              siteConfig.notes.map((note) => (
-                <a
-                  href={`${base}/notes/${note.slug}`}
-                  class="p-5 rounded-2xl bg-[#F7F5F0] hover:bg-[#141413] hover:text-white transition-all flex flex-col justify-between space-y-4 group"
-                >
-                  <div class="space-y-2">
-                    <div class="flex items-center justify-between text-xs font-mono opacity-65">
-                      <span>{note.category}</span>
-                      <span>{note.date}</span>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold leading-snug">{note.title}</h3>
-                    <p class="text-xs opacity-80 line-clamp-3 leading-relaxed">{note.excerpt}</p>
-                  </div>
-                  <div class="text-xs font-mono font-semibold text-[#FF5A26] group-hover:text-[#D8FF38]">
-                    阅读全文 ({note.readingTime}) →
-                  </div>
-                </a>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================================
-       STYLE 3: PHOSPHOR CYBER-TERMINAL (极客复古终端 / 硬核工程师风)
-       ============================================================================ -->
-  <div id="style-panel-terminal" class="style-panel hidden bg-[#090B0E] text-[#E2E8F0] font-mono min-h-screen py-10 sm:py-14 pb-28 terminal-scanlines">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
-      <!-- Top Terminal Status Bar -->
-      <div class="border border-[#262F3D] bg-[#0F1319] p-3 sm:px-5 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div class="flex items-center gap-3">
-          <span class="px-2 py-0.5 bg-[#FFB000] text-[#090B0E] font-bold">TTY://01</span>
-          <span class="text-[#00F5D4]">STYLE 03: PHOSPHOR CYBER-TERMINAL</span>
-        </div>
-        <div class="text-[#8892B0]">
-          KERNEL: ASTRO_OS v4.16 · MEM: 64MB OK · SHANGHAI_NODE
-        </div>
-      </div>
-
-      <!-- Terminal Window 1: whoami & neofetch -->
-      <div class="border border-[#262F3D] bg-[#0D1117] shadow-2xl">
-        <div class="border-b border-[#262F3D] bg-[#161B22] px-4 py-2 flex items-center justify-between text-xs text-[#8B949E]">
-          <span>bash — linxiao@monograph:~ (80×24)</span>
-          <span>[UTF-8]</span>
-        </div>
-
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="text-xs sm:text-sm text-[#8B949E]">
-            <span class="text-[#00F5D4]">guest@almighty-23</span>:<span class="text-[#FFB000]">~</span>$ cat ./profile.toml
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            <!-- ASCII Monogram Art -->
-            <pre class="md:col-span-4 text-[11px] leading-tight text-[#FFB000] overflow-x-auto select-none">
-  _     ___ _  _ 
- | |   |_ _| \| |
- | |__  | || .` |
- |____|___|_| \_|
- :: STUDIO // 2026
- :: SHANGHAI_CN
-            </pre>
-
-            <div class="md:col-span-8 space-y-3 border-l border-[#262F3D] pl-0 md:pl-6">
-              <h1 class="text-2xl sm:text-4xl font-bold text-[#FFB000]">
-                {siteConfig.name} ({siteConfig.nameCn}) <span class="terminal-cursor"></span>
-              </h1>
-              <p class="text-sm sm:text-base text-[#00F5D4]">
-                &gt; {defaultLens.headline}
-              </p>
-              <p class="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
-                {defaultLens.manifesto}
-              </p>
-              <div class="pt-2 flex flex-wrap gap-2">
-                {
-                  defaultLens.highlights.map((h) => (
-                    <span class="px-2 py-0.5 border border-[#00F5D4]/40 text-[#00F5D4] text-xs">
-                      [{h}]
-                    </span>
-                  ))
-                }
-              </div>
+            <div class="p-3 rounded-2xl bg-[#F7F5F0]">
+              <div class="text-xl font-bold text-[#161615]">—</div>
+              <div class="text-xs text-[#686660] mt-1">待扩展项</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Terminal Window 2: Projects Directory Listing -->
-      <div class="border border-[#262F3D] bg-[#0D1117]">
-        <div class="border-b border-[#262F3D] bg-[#161B22] px-4 py-2 flex items-center justify-between text-xs text-[#8B949E]">
-          <span>guest@almighty-23:~/projects$ ls -lh --sort=year</span>
-          <span class="text-[#00F5D4]">TOTAL {siteConfig.projects.length} REPOS</span>
-        </div>
-
-        <div class="divide-y divide-[#1E2633]">
-          {
-            siteConfig.projects.map((p, i) => (
-              <div class="p-5 sm:p-6 hover:bg-[#131922] transition-colors space-y-2">
-                <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-                  <div class="flex items-center gap-3">
-                    <span class="text-[#64748B]">drwxr-xr-x 0{i + 1}</span>
-                    <span class="text-[#FFB000] font-bold text-base sm:text-lg">{p.title}</span>
-                    <span class="px-1.5 py-0.5 bg-[#00F5D4]/10 text-[#00F5D4] border border-[#00F5D4]/30">
-                      {p.categoryLabel}
-                    </span>
-                  </div>
-                  <a
-                    href={p.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-[#FFB000] hover:underline"
-                  >
-                    [EXECUTE / VIEW ↗]
-                  </a>
-                </div>
-                <p class="text-xs sm:text-sm text-[#E2E8F0]">{p.subtitle}</p>
-                <p class="text-xs text-[#94A3B8]">{p.summary}</p>
-                <div class="pt-1 flex flex-wrap items-center gap-3 text-[11px] text-[#00F5D4]">
-                  <span>DEPS: {p.tech.join(' :: ')}</span>
-                  <span class="text-[#64748B]">|</span>
-                  <span class="text-[#FFB000]">STDOUT: {p.impact}</span>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Terminal Window 3: Logs / Notes -->
-      <div class="border border-[#262F3D] bg-[#0D1117] p-6 space-y-4">
-        <div class="text-xs text-[#8B949E]">
-          <span class="text-[#00F5D4]">guest@almighty-23</span>:<span class="text-[#FFB000]">~/notes</span>$ tail -n 10 ./essays.log
-        </div>
-        <div class="space-y-3">
-          {
-            siteConfig.notes.map((n) => (
-              <a
-                href={`${base}/notes/${n.slug}`}
-                class="block p-3 border border-[#1E2633] hover:border-[#FFB000] transition-colors"
-              >
-                <div class="flex flex-wrap justify-between text-xs text-[#FFB000]">
-                  <span>[{n.date}] {n.title}</span>
-                  <span class="text-[#00F5D4]">READ_FILE ({n.readingTime}) -&gt;</span>
-                </div>
-                <p class="text-xs text-[#94A3B8] mt-1">{n.excerpt}</p>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================================
-       STYLE 4: AVANT-GARDE KINETIC POSTER (包豪斯先锋展览海报 / 高饱和拼贴风)
-       ============================================================================ -->
-  <div id="style-panel-poster" class="style-panel hidden bg-[#FBF8F3] text-[#141413] min-h-screen pb-28">
-    <!-- Kinetic Scrolling Ticker Banner -->
-    <div class="bg-[#E63926] text-[#FBF8F3] border-b-2 border-[#141413] py-2.5 overflow-hidden">
-      <div class="poster-marquee font-mono text-xs sm:text-sm font-bold tracking-wider uppercase">
-        <span class="mx-6">★ STYLE 04: AVANT-GARDE EXHIBITION POSTER</span>
-        <span class="mx-6">★ {siteConfig.name} ({siteConfig.nameCn}) — CREATIVE TECHNOLOGIST</span>
-        <span class="mx-6">★ FORM FOLLOWS TENSION</span>
-        <span class="mx-6">★ {siteConfig.issueNumber}</span>
-        <span class="mx-6">★ STYLE 04: AVANT-GARDE EXHIBITION POSTER</span>
-        <span class="mx-6">★ {siteConfig.name} ({siteConfig.nameCn}) — CREATIVE TECHNOLOGIST</span>
-        <span class="mx-6">★ FORM FOLLOWS TENSION</span>
-        <span class="mx-6">★ {siteConfig.issueNumber}</span>
-      </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 space-y-16">
-      <!-- Oversized Poster Hero Block -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#141413] bg-[#FBF8F3] poster-shadow">
-        <div class="lg:col-span-8 p-6 sm:p-12 bg-[#E63926] text-[#FBF8F3] border-b-2 lg:border-b-0 lg:border-r-2 border-[#141413] flex flex-col justify-between space-y-8">
-          <div class="flex items-center justify-between font-mono text-xs font-bold">
-            <span class="px-2.5 py-1 bg-[#141413] text-[#D8FF38]">EXHIBITION 2026</span>
-            <span>SHANGHAI / TOKYO / REMOTE</span>
-          </div>
-
+      <!-- Row 2: Projects Directory Bento Card -->
+      <section id="v1-projects" class="bento-v1-card p-7 sm:p-9 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/5 pb-5">
           <div>
-            <h1 class="editorial-display text-6xl sm:text-8xl lg:text-9xl uppercase leading-none tracking-tight">
-              {siteConfig.name}
-            </h1>
-            <p class="font-serif text-3xl sm:text-5xl mt-2 text-[#D8FF38]">
-              {siteConfig.nameCn} — 视觉与代码造物
-            </p>
+            <span class="text-xs font-mono text-[#0F5243] font-semibold">DIRECTORY 01 · PROJECTS</span>
+            <h2 class="text-2xl font-bold mt-0.5">作品集展示</h2>
           </div>
 
-          <p class="text-base sm:text-xl font-medium leading-relaxed max-w-2xl">
-            {defaultLens.headline} {defaultLens.manifesto}
-          </p>
-        </div>
-
-        <div class="lg:col-span-4 p-6 sm:p-10 bg-[#0B132B] text-[#FBF8F3] flex flex-col justify-between space-y-6">
-          <div class="space-y-2">
-            <span class="font-mono text-xs text-[#D8FF38]">MANIFESTO STAMP</span>
-            <h2 class="font-serif text-3xl">大胆排印 × 工程秩序</h2>
-            <p class="text-xs sm:text-sm text-[#CBD5E1] leading-relaxed">
-              用展览海报级的色块碰撞打破平庸网页布局，适合希望展现强烈个人艺术张力的创作者。
-            </p>
-          </div>
-
+          <!-- Category Filter Pills Directory -->
           <div class="flex flex-wrap gap-2">
             {
-              defaultLens.highlights.map((h) => (
-                <span class="px-3 py-1 bg-[#FBF8F3] text-[#141413] font-mono text-xs font-bold">
-                  {h}
+              siteConfig.projectCategories.map((cat, idx) => (
+                <span
+                  class={`px-3.5 py-1.5 rounded-full text-xs font-medium ${
+                    idx === 0
+                      ? 'bg-[#161615] text-white'
+                      : 'bg-[#F4F2ED] text-[#686660]'
+                  }`}
+                >
+                  {cat}
                 </span>
               ))
             }
           </div>
-
-          <button
-            type="button"
-            onclick={`window.copySiteEmail('${siteConfig.email}')`}
-            class="w-full py-3.5 bg-[#D8FF38] text-[#141413] font-mono text-sm font-bold border-2 border-[#141413] hover:bg-white transition-colors"
-          >
-            COPY EMAIL: {siteConfig.email}
-          </button>
         </div>
+
+        <!-- Empty State Slots for Projects -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="bento-v1-slot p-8 flex flex-col items-center justify-center text-center min-h-[180px] space-y-2">
+            <div class="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-sm font-mono text-[#0F5243]">
+              01
+            </div>
+            <p class="font-semibold text-sm">作品卡片位置 01（空）</p>
+            <p class="text-xs text-[#78756E] max-w-xs">
+              后续在 <code class="font-mono">siteConfig.ts</code> 的 <code class="font-mono">projects</code> 中添加项目名称、简介与链接即可自动展示。
+            </p>
+          </div>
+
+          <div class="bento-v1-slot p-8 flex flex-col items-center justify-center text-center min-h-[180px] space-y-2">
+            <div class="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-sm font-mono text-[#78756E]">
+              +
+            </div>
+            <p class="font-semibold text-sm text-[#5A5852]">更多作品插槽（待添加）</p>
+            <p class="text-xs text-[#78756E]">支持项目预览链接、GitHub 仓库与技术栈标签</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 3: Notes / Blog Directory (8 cols) + Contact Directory (4 cols) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <section id="v1-notes" class="bento-v1-card md:col-span-8 p-7 sm:p-9 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/5 pb-5">
+            <div>
+              <span class="text-xs font-mono text-[#FF5A26] font-semibold">DIRECTORY 02 · NOTES</span>
+              <h2 class="text-2xl font-bold mt-0.5">博客与文章笔记</h2>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              {
+                siteConfig.noteCategories.map((cat, idx) => (
+                  <span
+                    class={`px-3 py-1 rounded-full text-xs font-medium ${
+                      idx === 0 ? 'bg-[#FFF0EB] text-[#FF5A26]' : 'bg-[#F4F2ED] text-[#686660]'
+                    }`}
+                  >
+                    {cat}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="bento-v1-slot p-8 text-center space-y-2">
+            <p class="text-sm font-semibold text-[#5A5852]">暂无已发布的文章笔记</p>
+            <p class="text-xs text-[#78756E]">
+              添加文章后将在此处按时间倒序排列，并自动生成独立的文章阅读页。
+            </p>
+          </div>
+        </section>
+
+        <section id="v1-contact" class="bento-v1-card md:col-span-4 p-7 sm:p-9 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-mono text-[#78756E]">DIRECTORY 03 · LINKS</span>
+            <h2 class="text-2xl font-bold mt-0.5">社交与联络</h2>
+          </div>
+
+          <div class="space-y-3">
+            {
+              siteConfig.socials.map((s) => (
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-[#F7F5F0] text-xs">
+                  <span class="font-semibold">{s.label}</span>
+                  {s.url ? (
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" class="font-mono text-[#0F5243] hover:underline">
+                      {s.value} ↗
+                    </a>
+                  ) : (
+                    <span class="font-mono text-[#8C8980]">{s.value}</span>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+        </section>
       </div>
+    </div>
+  </div>
 
-      <!-- Poster Works Grid -->
-      <div class="space-y-6">
-        <div class="flex items-baseline justify-between border-b-2 border-[#141413] pb-3">
-          <h2 class="editorial-display text-5xl sm:text-6xl">WORKS / 展品目录</h2>
-          <span class="font-mono text-xs font-bold">01 — 0{siteConfig.projects.length}</span>
+  <!-- ============================================================================
+       VERSION 2: 曜石暗夜 · OBSIDIAN DARK BENTO (Linear / Raycast 质感暗黑便当盒)
+       ============================================================================ -->
+  <div id="bento-panel-v2" class="bento-panel hidden bento-v2-bg min-h-screen pb-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-6 space-y-6">
+      <!-- Top Dark Bento Bar -->
+      <header class="bento-v2-card px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#10B981]"></span>
+          <span class="font-mono text-sm font-semibold tracking-tight">{siteConfig.name} // {siteConfig.handle}</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <nav aria-label="暗色版主目录" class="hidden sm:flex items-center gap-6 text-xs font-mono text-[#94A3B8]">
           {
-            siteConfig.projects.map((p, idx) => (
+            siteConfig.nav.map((item) => (
+              <a href={`#v2-${item.id}`} class="hover:text-white transition-colors">
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+
+        <a
+          href={siteConfig.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-mono text-white transition-colors"
+        >
+          GitHub ↗
+        </a>
+      </header>
+
+      <!-- 4-Tile Asymmetric Dashboard Hero -->
+      <section id="v2-about" class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div class="bento-v2-card md:col-span-8 p-8 flex flex-col justify-between space-y-6">
+          <div class="flex items-center justify-between text-xs font-mono text-[#64748B]">
+            <span>01 // PROFILE OVERVIEW</span>
+            <span class="text-[#10B981]">ONLINE</span>
+          </div>
+
+          <div class="space-y-3">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              {siteConfig.name} <span class="text-[#64748B] font-normal">({siteConfig.handle})</span>
+            </h1>
+            <div class="bento-v2-slot p-5 text-sm text-[#94A3B8]">
+              {siteConfig.bio || '个人简介待填写 — 此区域用于展示你的个人介绍、方向与核心标签。'}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 text-xs font-mono text-[#64748B]">
+            <span class="px-3 py-1 rounded-md bg-white/5 border border-white/5">[标签待添加]</span>
+            <span class="px-3 py-1 rounded-md bg-white/5 border border-white/5">[技术栈待添加]</span>
+          </div>
+        </div>
+
+        <div id="v2-now" class="md:col-span-4 grid grid-cols-1 gap-4">
+          <div class="bento-v2-card p-6 flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-[#64748B]">
+              <span>02 // NOW</span>
+              <span class="text-[#10B981]">STATUS</span>
+            </div>
+            <div class="bento-v2-slot p-4 text-xs text-[#94A3B8]">
+              近期动态：{siteConfig.status || '待添加'}
+            </div>
+          </div>
+
+          <div id="v2-contact" class="bento-v2-card p-6 flex flex-col justify-between space-y-3">
+            <div class="text-xs font-mono text-[#64748B]">03 // CHANNELS</div>
+            {
+              siteConfig.socials.map((s) => (
+                <div class="flex items-center justify-between text-xs font-mono py-1 border-b border-white/5 last:border-0">
+                  <span class="text-[#94A3B8]">{s.label}</span>
+                  {s.url ? (
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" class="text-[#10B981] hover:underline">
+                      {s.value} ↗
+                    </a>
+                  ) : (
+                    <span class="text-[#475569]">{s.value}</span>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects & Notes Split Bento Row -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <section id="v2-projects" class="bento-v2-card md:col-span-6 p-7 space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-mono text-[#10B981]">04 // PROJECTS</span>
+              <h2 class="text-xl font-bold text-white mt-0.5">作品集目录</h2>
+            </div>
+            <div class="flex gap-1.5 text-xs font-mono text-[#64748B]">
+              {siteConfig.projectCategories.slice(0, 3).map((c) => (
+                <span class="px-2.5 py-1 rounded bg-white/5">{c}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="bento-v2-slot p-8 text-center space-y-1.5">
+              <p class="text-sm font-medium text-[#CBD5E1]">暂无作品项目（待添加）</p>
+              <p class="text-xs text-[#64748B]">支持展示项目卡片、仓库链接与技术标签</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="v2-notes" class="bento-v2-card md:col-span-6 p-7 space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-mono text-[#38BDF8]">05 // NOTES</span>
+              <h2 class="text-xl font-bold text-white mt-0.5">文章与笔记目录</h2>
+            </div>
+            <div class="flex gap-1.5 text-xs font-mono text-[#64748B]">
+              {siteConfig.noteCategories.slice(0, 3).map((c) => (
+                <span class="px-2.5 py-1 rounded bg-white/5">{c}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="bento-v2-slot p-8 text-center space-y-1.5">
+            <p class="text-sm font-medium text-[#CBD5E1]">暂无文章笔记（待添加）</p>
+            <p class="text-xs text-[#64748B]">添加文章后将在此列表归档展示</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================================
+       VERSION 3: 纯白侧栏画廊 · NORDIC PURE GALLERY (左侧固定目录 + 右侧纯白便当盒)
+       ============================================================================ -->
+  <div id="bento-panel-v3" class="bento-panel hidden bento-v3-bg min-h-screen pb-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Left 3 Cols: Sticky Index Sidebar Bento Card -->
+      <aside class="lg:col-span-3 lg:sticky lg:top-8 bento-v3-card p-6 space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-gray-100">
+          <div class="w-10 h-10 rounded-xl bg-[#111315] text-white flex items-center justify-center font-bold">
+            {siteConfig.name}
+          </div>
+          <div>
+            <div class="font-bold text-base">{siteConfig.name}</div>
+            <div class="text-xs font-mono text-gray-400">@{siteConfig.handle}</div>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-[11px] font-mono text-gray-400 px-2 pb-1">INDEX / 页面目录</div>
+          {
+            siteConfig.nav.map((item, idx) => (
               <a
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={`block border-2 border-[#141413] p-7 poster-shadow transition-transform hover:-translate-y-1 ${
-                  idx % 2 === 0 ? 'bg-white' : 'bg-[#D8FF38]'
+                href={`#v3-${item.id}`}
+                class={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                  idx === 0 ? 'bg-gray-100 text-black font-semibold' : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
-                <div class="flex items-center justify-between font-mono text-xs font-bold border-b-2 border-[#141413] pb-3 mb-5">
-                  <span class="px-2 py-0.5 bg-[#141413] text-white">NO. 0{idx + 1}</span>
-                  <span>{p.categoryLabel} · {p.year}</span>
-                </div>
-                <h3 class="font-serif text-3xl sm:text-4xl font-bold">{p.title}</h3>
-                <p class="text-sm sm:text-base font-semibold mt-1">{p.subtitle}</p>
-                <p class="text-xs sm:text-sm mt-3 leading-relaxed opacity-85">{p.summary}</p>
-                <div class="mt-5 pt-4 border-t border-[#141413]/20 flex flex-wrap gap-2">
-                  {p.tech.map((t) => (
-                    <span class="font-mono text-xs font-bold px-2 py-0.5 border border-[#141413] bg-[#FBF8F3]">
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                0{idx + 1}. {item.label}
               </a>
             ))
           }
         </div>
-      </div>
 
-      <!-- Poster Notes List -->
-      <div class="border-2 border-[#141413] bg-white p-6 sm:p-10 poster-shadow space-y-6">
-        <h2 class="editorial-display text-4xl sm:text-5xl border-b-2 border-[#141413] pb-4">
-          ESSAYS / 宣言与札记
-        </h2>
-        <div class="divide-y-2 divide-[#141413]">
-          {
-            siteConfig.notes.map((n) => (
-              <a
-                href={`${base}/notes/${n.slug}`}
-                class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#E63926] hover:text-white px-3 -mx-3 transition-colors"
-              >
-                <div>
-                  <span class="font-mono text-xs font-bold">{n.date} · {n.category}</span>
-                  <h3 class="font-serif text-2xl sm:text-3xl mt-1">{n.title}</h3>
-                </div>
-                <span class="font-mono text-xs font-bold shrink-0 px-3 py-1.5 border border-current">
-                  READ ({n.readingTime}) →
+        <div class="pt-4 border-t border-gray-100 space-y-2 text-xs">
+          <div class="text-[11px] font-mono text-gray-400">EXTERNAL</div>
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between py-1 font-mono text-gray-700 hover:text-black"
+          >
+            <span>GitHub</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Right 9 Cols: Pure White Bento Feed -->
+      <div class="lg:col-span-9 space-y-5">
+        <section id="v3-about" class="bento-v3-card p-8 space-y-4">
+          <div class="text-xs font-mono text-gray-400">01 / ABOUT</div>
+          <h1 class="text-2xl sm:text-3xl font-bold">{siteConfig.name}</h1>
+          <div class="bento-v3-slot p-6 text-sm text-gray-500">
+            {siteConfig.bio || '个人简介区域（当前为空）'}
+          </div>
+        </section>
+
+        <section id="v3-projects" class="bento-v3-card p-8 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <div class="text-xs font-mono text-gray-400">02 / PROJECTS</div>
+              <h2 class="text-xl font-bold mt-0.5">作品集展示</h2>
+            </div>
+            <div class="flex gap-1.5">
+              {siteConfig.projectCategories.map((c, i) => (
+                <span class={`px-3 py-1 rounded-lg text-xs ${i === 0 ? 'bg-black text-white' : 'bg-gray-100 text-gray-600'}`}>
+                  {c}
                 </span>
-              </a>
-            ))
-          }
+              ))}
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bento-v3-slot p-8 text-center text-xs text-gray-400">
+              作品卡片槽位 01（空）
+            </div>
+            <div class="bento-v3-slot p-8 text-center text-xs text-gray-400">
+              作品卡片槽位 02（空）
+            </div>
+          </div>
+        </section>
+
+        <section id="v3-notes" class="bento-v3-card p-8 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <div class="text-xs font-mono text-gray-400">03 / NOTES</div>
+              <h2 class="text-xl font-bold mt-0.5">博客与文章笔记</h2>
+            </div>
+            <div class="flex gap-1.5">
+              {siteConfig.noteCategories.map((c, i) => (
+                <span class={`px-3 py-1 rounded-lg text-xs ${i === 0 ? 'bg-black text-white' : 'bg-gray-100 text-gray-600'}`}>
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div class="bento-v3-slot p-8 text-center text-xs text-gray-400">
+            文章列表区域（当前为空）
+          </div>
+        </section>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <section id="v3-now" class="bento-v3-card p-7 space-y-3">
+            <div class="text-xs font-mono text-gray-400">04 / NOW</div>
+            <h2 class="text-lg font-bold">当下状态</h2>
+            <div class="bento-v3-slot p-5 text-xs text-gray-400">
+              近期动态（当前为空）
+            </div>
+          </section>
+
+          <section id="v3-contact" class="bento-v3-card p-7 space-y-3">
+            <div class="text-xs font-mono text-gray-400">05 / CONTACT</div>
+            <h2 class="text-lg font-bold">联络方式</h2>
+            <div class="bento-v3-slot p-5 text-xs text-gray-400">
+              邮箱与社交链接（当前为空）
+            </div>
+          </section>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Client Interactivity for Style Switcher, Identity Lens & Portfolio Filter -->
+  <!-- ============================================================================
+       VERSION 4: 柔雾毛玻璃 · FROSTED GLASS & AURA (环境光斑 + 半透明磨砂便当盒)
+       ============================================================================ -->
+  <div id="bento-panel-v4" class="bento-panel hidden bento-v4-bg min-h-screen pb-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 pt-8 space-y-6">
+      <!-- Centered Frosted Segmented Navigation -->
+      <header class="flex justify-center">
+        <nav class="bento-v4-card px-3 py-2 flex flex-wrap items-center gap-1 shadow-sm">
+          {
+            siteConfig.nav.map((item, idx) => (
+              <a
+                href={`#v4-${item.id}`}
+                class={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  idx === 0 ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-white/60'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+
+      <!-- Frosted Hero & Status Row -->
+      <section id="v4-about" class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div class="bento-v4-card md:col-span-8 p-8 space-y-5">
+          <div class="flex items-center gap-3.5">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-2xl font-bold">
+              {siteConfig.name}
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-slate-900">{siteConfig.name}</h1>
+              <p class="text-xs font-mono text-slate-500">@{siteConfig.handle}</p>
+            </div>
+          </div>
+
+          <div class="bento-v4-slot p-6 text-sm text-slate-600">
+            {siteConfig.bio || '个人简介与自我介绍区域（当前置空，待填写）'}
+          </div>
+        </div>
+
+        <div id="v4-now" class="bento-v4-card md:col-span-4 p-8 flex flex-col justify-between space-y-4">
+          <div class="text-xs font-mono text-slate-500">NOW / 当下</div>
+          <div class="bento-v4-slot p-5 text-xs text-slate-500 text-center">
+            近期状态（待添加）
+          </div>
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-2.5 rounded-full bg-slate-900 text-white text-xs font-mono text-center hover:bg-slate-800 transition-colors"
+          >
+            GitHub @{siteConfig.handle} ↗
+          </a>
+        </div>
+      </section>
+
+      <!-- Frosted Projects Card -->
+      <section id="v4-projects" class="bento-v4-card p-8 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-xl font-bold text-slate-900">作品集展示 / Projects</h2>
+          <div class="flex gap-1.5">
+            {siteConfig.projectCategories.map((c, i) => (
+              <span class={`px-3 py-1 rounded-full text-xs ${i === 0 ? 'bg-slate-900 text-white' : 'bg-white/60 text-slate-600'}`}>
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bento-v4-slot p-8 text-center text-xs text-slate-500">
+            作品卡片位置 01（空）
+          </div>
+          <div class="bento-v4-slot p-8 text-center text-xs text-slate-500">
+            作品卡片位置 02（空）
+          </div>
+        </div>
+      </section>
+
+      <!-- Frosted Notes & Contact Row -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <section id="v4-notes" class="bento-v4-card md:col-span-8 p-8 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="text-xl font-bold text-slate-900">文章笔记 / Notes</h2>
+            <div class="flex gap-1.5">
+              {siteConfig.noteCategories.map((c, i) => (
+                <span class={`px-3 py-1 rounded-full text-xs ${i === 0 ? 'bg-slate-900 text-white' : 'bg-white/60 text-slate-600'}`}>
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div class="bento-v4-slot p-8 text-center text-xs text-slate-500">
+            暂无文章笔记（待添加）
+          </div>
+        </section>
+
+        <section id="v4-contact" class="bento-v4-card md:col-span-4 p-8 flex flex-col justify-between space-y-4">
+          <h2 class="text-xl font-bold text-slate-900">联络 / Contact</h2>
+          <div class="space-y-2.5">
+            {siteConfig.socials.map((s) => (
+              <div class="p-3 rounded-2xl bg-white/60 flex items-center justify-between text-xs">
+                <span class="font-medium text-slate-700">{s.label}</span>
+                <span class="font-mono text-slate-500">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Switcher Script -->
   <script is:inline>
-    // 0. Live Style Switcher (1: editorial, 2: bento, 3: terminal, 4: poster)
-    const styleBtns = document.querySelectorAll('.style-switch-btn');
-    const stylePanels = {
-      editorial: document.getElementById('style-panel-editorial'),
-      bento: document.getElementById('style-panel-bento'),
-      terminal: document.getElementById('style-panel-terminal'),
-      poster: document.getElementById('style-panel-poster'),
+    const bentoBtns = document.querySelectorAll('.bento-switch-btn');
+    const bentoPanels = {
+      v1: document.getElementById('bento-panel-v1'),
+      v2: document.getElementById('bento-panel-v2'),
+      v3: document.getElementById('bento-panel-v3'),
+      v4: document.getElementById('bento-panel-v4'),
     };
 
-    function activateStyle(styleKey) {
-      if (!stylePanels[styleKey]) return;
-      Object.entries(stylePanels).forEach(([key, panel]) => {
+    function activateBento(versionKey) {
+      if (!bentoPanels[versionKey]) return;
+      Object.entries(bentoPanels).forEach(([k, panel]) => {
         if (!panel) return;
-        if (key === styleKey) {
+        if (k === versionKey) {
           panel.classList.remove('hidden');
         } else {
           panel.classList.add('hidden');
         }
       });
 
-      styleBtns.forEach((btn) => {
-        const target = btn.getAttribute('data-style-target');
-        if (target === styleKey) {
+      bentoBtns.forEach((btn) => {
+        const target = btn.getAttribute('data-bento-target');
+        if (target === versionKey) {
           btn.className =
-            'style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#D8FF38] text-[#141413]';
+            'bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-white text-[#141413]';
         } else {
           btn.className =
-            'style-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]';
+            'bento-switch-btn px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all bg-[#252523] text-[#E5E3DC] hover:bg-[#333330]';
         }
       });
 
-      localStorage.setItem('preferred-site-style', styleKey);
+      localStorage.setItem('preferred-bento-version', versionKey);
     }
 
-    styleBtns.forEach((btn) => {
+    bentoBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-style-target');
-        if (target) activateStyle(target);
+        const target = btn.getAttribute('data-bento-target');
+        if (target) activateBento(target);
       });
     });
 
-    // Keyboard shortcuts 1, 2, 3, 4
     window.addEventListener('keydown', (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) return;
-      if (e.key === '1') activateStyle('editorial');
-      if (e.key === '2') activateStyle('bento');
-      if (e.key === '3') activateStyle('terminal');
-      if (e.key === '4') activateStyle('poster');
+      if (e.key === '1') activateBento('v1');
+      if (e.key === '2') activateBento('v2');
+      if (e.key === '3') activateBento('v3');
+      if (e.key === '4') activateBento('v4');
     });
 
-    // Restore saved style or URL ?style= parameter
-    const urlStyle = new URLSearchParams(window.location.search).get('style');
-    const savedStyle = localStorage.getItem('preferred-site-style');
-    if (urlStyle && stylePanels[urlStyle]) {
-      activateStyle(urlStyle);
-    } else if (savedStyle && stylePanels[savedStyle]) {
-      activateStyle(savedStyle);
+    const urlBento = new URLSearchParams(window.location.search).get('bento');
+    const savedBento = localStorage.getItem('preferred-bento-version');
+    if (urlBento && bentoPanels[urlBento]) {
+      activateBento(urlBento);
+    } else if (savedBento && bentoPanels[savedBento]) {
+      activateBento(savedBento);
     }
-
-    // 1. Hero Identity Lens Switcher
-    const lensTabs = document.querySelectorAll('.lens-tab');
-    const headlineEl = document.getElementById('hero-headline');
-    const manifestoEl = document.getElementById('hero-manifesto');
-    const highlightsEl = document.getElementById('hero-highlights');
-
-    lensTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        lensTabs.forEach((t) => t.setAttribute('aria-selected', 'false'));
-        tab.setAttribute('aria-selected', 'true');
-
-        const headline = tab.getAttribute('data-lens-headline');
-        const manifesto = tab.getAttribute('data-lens-manifesto');
-        const highlights = JSON.parse(tab.getAttribute('data-lens-highlights') || '[]');
-
-        if (headlineEl && manifestoEl && highlightsEl) {
-          headlineEl.style.opacity = '0.2';
-          manifestoEl.style.opacity = '0.2';
-
-          setTimeout(() => {
-            headlineEl.textContent = headline;
-            manifestoEl.textContent = manifesto;
-            highlightsEl.innerHTML = highlights
-              .map(
-                (tag) =>
-                  `<span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper text-ink">${tag}</span>`
-              )
-              .join('');
-            headlineEl.style.opacity = '1';
-            manifestoEl.style.opacity = '1';
-          }, 120);
-        }
-      });
-    });
-
-    // 2. Portfolio Category Filter
-    const filterBtns = document.querySelectorAll('.filter-pill');
-    const projectItems = document.querySelectorAll('.project-item');
-
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-
-        const filter = btn.getAttribute('data-filter');
-        projectItems.forEach((item) => {
-          const cat = item.getAttribute('data-project-category');
-          if (filter === 'all' || cat === filter) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
   </script>
 </BaseLayout>
