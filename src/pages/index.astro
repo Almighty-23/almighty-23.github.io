@@ -1,0 +1,657 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/siteConfig';
+
+const defaultLens = siteConfig.identities[0];
+---
+
+<BaseLayout>
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <!-- =========================================================
+         SECTION 1: EDITORIAL COVER SPREAD (HERO & IDENTITY LENS)
+         ========================================================= -->
+    <section id="about" class="py-12 sm:py-20 border-b border-rule">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <!-- Left 7 Columns: Expressive Editorial Headline & Interactive Lens -->
+        <div class="lg:col-span-7 space-y-8">
+          <!-- Nameplate & Bilingual Title -->
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="inline-flex items-center gap-2 px-3 py-1 bg-surface border border-rule text-xs font-mono">
+                <span class="w-2 h-2 rounded-full bg-[#D8FF38] border border-ink status-dot"></span>
+                <span>{siteConfig.status}</span>
+              </span>
+              <span class="font-mono text-xs text-muted">
+                31.2304° N, 121.4737° E
+              </span>
+            </div>
+
+            <div class="pt-2">
+              <p class="font-mono text-xs text-muted tracking-wide">
+                PERSONAL MONOGRAPH &amp; DIGITAL GARDEN OF
+              </p>
+              <h1 class="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <span class="editorial-display text-5xl sm:text-7xl font-normal tracking-tight">
+                  {siteConfig.name}
+                </span>
+                <span class="font-serif text-3xl sm:text-5xl font-semibold text-cobalt">
+                  {siteConfig.nameCn}
+                </span>
+              </h1>
+            </div>
+          </div>
+
+          <!-- Interactive Identity Switcher Tabs -->
+          <div class="space-y-3">
+            <div class="text-xs font-mono text-muted">
+              切换视角以查看不同维度的工作重心：
+            </div>
+            <div
+              role="tablist"
+              aria-label="身份视角切换"
+              class="flex flex-wrap gap-2"
+            >
+              {
+                siteConfig.identities.map((lens, idx) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={idx === 0 ? 'true' : 'false'}
+                    data-lens-id={lens.id}
+                    data-lens-headline={lens.headline}
+                    data-lens-manifesto={lens.manifesto}
+                    data-lens-highlights={JSON.stringify(lens.highlights)}
+                    class="lens-tab px-3.5 py-1.5 text-xs sm:text-sm font-medium border border-rule bg-surface hover:border-ink transition-all"
+                  >
+                    {lens.label}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Dynamic Manifesto Statement -->
+          <div class="space-y-5 pt-1">
+            <h2
+              id="hero-headline"
+              class="font-serif text-2xl sm:text-4xl leading-snug font-normal text-ink transition-opacity duration-200"
+            >
+              {defaultLens.headline}
+            </h2>
+            <p
+              id="hero-manifesto"
+              class="text-base sm:text-lg text-muted leading-relaxed max-w-2xl transition-opacity duration-200"
+            >
+              {defaultLens.manifesto}
+            </p>
+
+            <!-- Dynamic Skill / Focus Tags -->
+            <div id="hero-highlights" class="flex flex-wrap gap-2 pt-1">
+              {
+                defaultLens.highlights.map((tag) => (
+                  <span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper text-ink">
+                    {tag}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Columns: Tactile Monograph Dossier Card -->
+        <div class="lg:col-span-5">
+          <div
+            id="dossier-card"
+            class="border border-ink bg-surface p-6 sm:p-8 relative transition-transform duration-200"
+          >
+            <!-- Top Stamp Row -->
+            <div class="flex items-start justify-between border-b border-rule pb-5">
+              <div>
+                <p class="font-mono text-xs text-muted">INDEX CARD</p>
+                <p class="font-serif text-2xl mt-0.5">Creator Dossier</p>
+              </div>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[#D8FF38] text-[#141413] font-medium border border-[#141413]">
+                VERIFIED · 2026
+              </span>
+            </div>
+
+            <!-- Abstract Editorial Graphic Specimen -->
+            <div class="my-6 border border-rule bg-paper p-5 relative overflow-hidden">
+              <svg
+                viewBox="0 0 400 170"
+                class="w-full h-36 sm:h-40"
+                aria-hidden="true"
+              >
+                <!-- Architectural Grid Lines -->
+                <line x1="0" y1="35" x2="400" y2="35" stroke="currentColor" stroke-opacity="0.12" />
+                <line x1="0" y1="85" x2="400" y2="85" stroke="currentColor" stroke-opacity="0.12" />
+                <line x1="0" y1="135" x2="400" y2="135" stroke="currentColor" stroke-opacity="0.12" />
+                <line x1="90" y1="0" x2="90" y2="170" stroke="currentColor" stroke-opacity="0.12" />
+                <line x1="260" y1="0" x2="260" y2="170" stroke="currentColor" stroke-opacity="0.12" />
+
+                <!-- Bold Cobalt Geometric Arc -->
+                <circle cx="90" cy="85" r="56" fill="none" stroke="var(--accent-cobalt)" stroke-width="2.5" />
+                <circle cx="90" cy="85" r="24" fill="var(--accent-cobalt)" />
+
+                <!-- Signal Chartreuse Offset Block -->
+                <rect x="236" y="42" width="88" height="86" fill="#D8FF38" stroke="#141413" stroke-width="1.5" />
+                <text x="250" y="92" font-family="Instrument Serif, serif" font-size="34" font-style="italic" fill="#141413">
+                  Aa / 格
+                </text>
+
+                <!-- Connecting Trajectory -->
+                <path d="M 146 85 C 185 85, 195 60, 236 60" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4" />
+              </svg>
+              <div class="flex justify-between items-center text-[11px] font-mono text-muted pt-2 border-t border-rule">
+                <span>FIG 1.0 — FORM &amp; COMPUTATION</span>
+                <span>SCALE 1:1</span>
+              </div>
+            </div>
+
+            <!-- Key Metadata Rows -->
+            <dl class="space-y-3 text-sm border-b border-rule pb-5">
+              <div class="flex justify-between py-1 border-b border-rule/60">
+                <dt class="font-mono text-xs text-muted">主力方向</dt>
+                <dd class="font-medium text-right">全栈产品工程 / 视觉设计系统</dd>
+              </div>
+              <div class="flex justify-between py-1 border-b border-rule/60">
+                <dt class="font-mono text-xs text-muted">技术偏好</dt>
+                <dd class="font-mono text-xs text-right">Astro · React · TypeScript · Rust</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="font-mono text-xs text-muted">所在城市</dt>
+                <dd class="font-medium text-right">{siteConfig.location}</dd>
+              </div>
+            </dl>
+
+            <!-- Action Buttons (Copy Email & Quick Jump) -->
+            <div class="pt-5 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onclick={`window.copySiteEmail('${siteConfig.email}')`}
+                class="flex-1 min-w-[160px] px-4 py-2.5 bg-ink text-paper text-xs sm:text-sm font-mono font-medium hover:bg-cobalt hover:text-white transition-colors text-center"
+              >
+                复制邮箱 · {siteConfig.email}
+              </button>
+              <a
+                href="#works"
+                class="px-4 py-2.5 border border-ink text-xs sm:text-sm font-mono font-medium hover:bg-ink hover:text-paper transition-colors"
+              >
+                浏览作品集 ↓
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: SELECTED WORKS (EDITORIAL FEATURE SPREADS)
+         ========================================================= -->
+    <section id="works" class="py-16 sm:py-24 border-b border-rule">
+      <!-- Section Header & Filter Bar -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-rule">
+        <div>
+          <p class="font-mono text-xs text-cobalt">SELECTED ARCHIVE · 2025—2026</p>
+          <h2 class="editorial-display text-4xl sm:text-6xl mt-1">
+            代表作品与实验项目
+          </h2>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap gap-2" role="group" aria-label="作品分类筛选">
+          <button
+            type="button"
+            aria-pressed="true"
+            data-filter="all"
+            class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors"
+          >
+            全部作品 ({siteConfig.projects.length})
+          </button>
+          <button
+            type="button"
+            aria-pressed="false"
+            data-filter="design"
+            class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors"
+          >
+            设计系统 · Design
+          </button>
+          <button
+            type="button"
+            aria-pressed="false"
+            data-filter="ai"
+            class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors"
+          >
+            AI 与工具 · Agent
+          </button>
+          <button
+            type="button"
+            aria-pressed="false"
+            data-filter="engineering"
+            class="filter-pill px-3.5 py-1.5 text-xs font-mono border border-rule bg-surface transition-colors"
+          >
+            创意工程 · Engineering
+          </button>
+        </div>
+      </div>
+
+      <!-- Editorial Project Spreads -->
+      <div class="divide-y divide-rule">
+        {
+          siteConfig.projects.map((project) => (
+            <article
+              data-project-category={project.category}
+              class="project-item py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
+            >
+              <!-- Left 5 Cols: Bespoke Interactive Visual Canvas -->
+              <div class="lg:col-span-5">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="block border border-rule bg-surface p-6 group-hover:border-ink transition-colors relative overflow-hidden"
+                >
+                  <div class="flex items-center justify-between text-xs font-mono text-muted mb-4">
+                    <span>{project.index}</span>
+                    <span class="px-2 py-0.5 border border-rule bg-paper text-ink">
+                      {project.categoryLabel}
+                    </span>
+                  </div>
+
+                  <!-- Bespoke SVG Illustration per Project -->
+                  <div class="h-48 sm:h-56 bg-paper border border-rule flex items-center justify-center p-4 overflow-hidden">
+                    {project.visualType === 'type-specimen' && (
+                      <svg viewBox="0 0 360 180" class="w-full h-full">
+                        <rect x="16" y="16" width="328" height="148" fill="none" stroke="currentColor" stroke-opacity="0.2" />
+                        <line x1="16" y1="64" x2="344" y2="64" stroke="var(--accent-cobalt)" stroke-width="1" stroke-dasharray="3 3" />
+                        <line x1="16" y1="128" x2="344" y2="128" stroke="var(--accent-cobalt)" stroke-width="1" stroke-dasharray="3 3" />
+                        <text x="32" y="118" font-family="Instrument Serif, serif" font-size="78" fill="currentColor" class="group-hover:translate-x-2 transition-transform duration-300">
+                          Editorial
+                        </text>
+                        <rect x="258" y="28" width="68" height="24" fill="#D8FF38" stroke="#141413" />
+                        <text x="268" y="44" font-family="JetBrains Mono, monospace" font-size="11" fill="#141413">
+                          GRID 12X
+                        </text>
+                      </svg>
+                    )}
+
+                    {project.visualType === 'neural-topology' && (
+                      <svg viewBox="0 0 360 180" class="w-full h-full">
+                        <path d="M 55 90 Q 140 25, 210 90 T 310 65" fill="none" stroke="var(--accent-cobalt)" stroke-width="2" />
+                        <path d="M 55 90 Q 140 155, 210 90 T 310 125" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5" />
+                        <circle cx="55" cy="90" r="14" fill="#D8FF38" stroke="#141413" stroke-width="2" />
+                        <circle cx="155" cy="56" r="9" fill="var(--accent-cobalt)" />
+                        <circle cx="210" cy="90" r="16" fill="currentColor" />
+                        <circle cx="310" cy="65" r="11" fill="#D8FF38" stroke="#141413" stroke-width="2" />
+                        <circle cx="310" cy="125" r="9" fill="var(--accent-cobalt)" />
+                        <text x="24" y="162" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity="0.65">
+                          SKILL.md -&gt; MCP_GRAPH :: TRACE_OK
+                        </text>
+                      </svg>
+                    )}
+
+                    {project.visualType === 'audio-synth' && (
+                      <svg viewBox="0 0 360 180" class="w-full h-full">
+                        {Array.from({ length: 18 }).map((_, i) => {
+                          const h = 24 + ((i * 37) % 100);
+                          const y = 90 - h / 2;
+                          return (
+                            <rect
+                              x={28 + i * 17}
+                              y={y}
+                              width="9"
+                              height={h}
+                              fill={i % 4 === 0 ? 'var(--accent-cobalt)' : i % 7 === 0 ? '#D8FF38' : 'currentColor'}
+                              opacity={i % 4 === 0 || i % 7 === 0 ? '1' : '0.22'}
+                            />
+                          );
+                        })}
+                        <line x1="16" y1="90" x2="344" y2="90" stroke="currentColor" stroke-opacity="0.25" />
+                      </svg>
+                    )}
+
+                    {project.visualType === 'kinetic-grid' && (
+                      <svg viewBox="0 0 360 180" class="w-full h-full">
+                        <rect x="40" y="24" width="110" height="132" fill="none" stroke="currentColor" stroke-width="1.5" />
+                        <rect x="150" y="24" width="110" height="132" fill="var(--accent-cobalt)" fill-opacity="0.12" stroke="var(--accent-cobalt)" stroke-width="1.5" />
+                        <rect x="210" y="44" width="105" height="92" fill="#D8FF38" stroke="#141413" stroke-width="1.5" />
+                        <text x="56" y="75" font-family="Instrument Serif, serif" font-size="28" fill="currentColor">
+                          MD
+                        </text>
+                        <text x="228" y="96" font-family="Instrument Serif, serif" font-size="28" fill="#141413">
+                          PDF / 印
+                        </text>
+                      </svg>
+                    )}
+                  </div>
+
+                  <div class="mt-4 flex items-center justify-between text-xs font-mono">
+                    <span class="text-muted">{project.year} · {project.role}</span>
+                    <span class="text-cobalt font-medium group-hover:underline">
+                      查看项目详情 ↗
+                    </span>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Right 7 Cols: Editorial Story & Architectural Spec -->
+              <div class="lg:col-span-7 space-y-5">
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-3 font-mono text-xs text-muted">
+                    <span>{project.index}</span>
+                    <span>/</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <h3 class="font-serif text-3xl sm:text-4xl font-normal tracking-tight">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:text-cobalt transition-colors"
+                    >
+                      {project.title}
+                    </a>
+                  </h3>
+                  <p class="text-base sm:text-lg font-medium text-ink/90">
+                    {project.subtitle}
+                  </p>
+                </div>
+
+                <p class="text-muted leading-relaxed text-sm sm:text-base max-w-2xl">
+                  {project.summary}
+                </p>
+
+                <!-- Impact Highlight Bar -->
+                <div class="inline-block px-3.5 py-1.5 bg-surface border-l-2 border-cobalt text-xs sm:text-sm font-medium">
+                  成果与反馈：{project.impact}
+                </div>
+
+                <!-- Tech Stack & Links -->
+                <div class="pt-2 flex flex-wrap items-center justify-between gap-4">
+                  <div class="flex flex-wrap gap-2">
+                    {project.tech.map((t) => (
+                      <span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div class="flex items-center gap-4 text-xs font-mono">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-3.5 py-1.5 bg-ink text-paper hover:bg-cobalt hover:text-white transition-colors"
+                    >
+                      在线预览 · Live Demo
+                    </a>
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline hover:text-cobalt"
+                      >
+                        源码仓库
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: FIELD NOTES & ESSAYS (BLOG / WRITING)
+         ========================================================= -->
+    <section id="notes" class="py-16 sm:py-24 border-b border-rule">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- Left 4 Cols: Editorial Column Intro -->
+        <div class="lg:col-span-4 space-y-4">
+          <p class="font-mono text-xs text-cobalt">FIELD NOTES &amp; ESSAYS</p>
+          <h2 class="editorial-display text-4xl sm:text-5xl">
+            思考札记与长文专栏
+          </h2>
+          <p class="text-sm sm:text-base text-muted leading-relaxed">
+            记录关于设计系统、Agent 工具流、独立产品开发与阅读的阶段性总结。点击任意文章即可进入沉浸式排版阅读页。
+          </p>
+          <div class="pt-2">
+            <div class="p-4 border border-rule bg-surface space-y-2">
+              <p class="font-mono text-xs text-muted">EDITOR&apos;S NOTE</p>
+              <p class="text-xs leading-relaxed">
+                所有文章数据均托管在 <code class="font-mono text-cobalt">src/data/siteConfig.ts</code>（或随时扩展至 Astro Content Collections），新增一篇文章只需添加一个对象。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 8 Cols: Interactive Article Index -->
+        <div class="lg:col-span-8 divide-y divide-rule border-t border-b border-rule">
+          {
+            siteConfig.notes.map((note) => (
+              <article class="py-7 group">
+                <a href={`/notes/${note.slug}`} class="block space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-muted">
+                    <div class="flex items-center gap-2.5">
+                      <span class="px-2 py-0.5 bg-surface border border-rule text-ink font-medium">
+                        {note.category}
+                      </span>
+                      {note.featured && (
+                        <span class="px-2 py-0.5 bg-[#D8FF38] text-[#141413] font-medium">
+                          FEATURED
+                        </span>
+                      )}
+                      <span>{note.readingTime}</span>
+                    </div>
+                    <time>{note.date}</time>
+                  </div>
+
+                  <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-cobalt transition-colors">
+                    {note.title}
+                  </h3>
+
+                  <p class="text-sm sm:text-base text-muted leading-relaxed">
+                    {note.excerpt}
+                  </p>
+
+                  <div class="pt-1 flex items-center gap-2 text-xs font-mono text-cobalt font-medium">
+                    <span>阅读全文 · Read Essay</span>
+                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: MODULAR "NOW" SLICE (EASILY EXTENSIBLE LATER)
+         ========================================================= -->
+    <section id="now" class="py-16 sm:py-24 border-b border-rule">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10">
+        <div>
+          <p class="font-mono text-xs text-cobalt">
+            MODULAR SNAPSHOT · UPDATED {siteConfig.nowSlice.updatedAt}
+          </p>
+          <h2 class="editorial-display text-4xl sm:text-5xl mt-1">
+            当下切片与可扩展模块
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-muted">
+          [ 可随时在此网格中追加：书单 / 摄影画廊 / 时间线 / 硬件清单 ]
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1: Currently Building -->
+        <div class="border border-rule bg-surface p-6 space-y-3">
+          <div class="flex items-center justify-between font-mono text-xs text-muted">
+            <span>NOW BUILDING</span>
+            <span class="w-2 h-2 rounded-full bg-cobalt"></span>
+          </div>
+          <h3 class="font-serif text-2xl">近期在做的事</h3>
+          <p class="text-sm text-muted leading-relaxed">
+            {siteConfig.nowSlice.building}
+          </p>
+        </div>
+
+        <!-- Card 2: Reading & Input -->
+        <div class="border border-rule bg-surface p-6 space-y-3">
+          <div class="flex items-center justify-between font-mono text-xs text-muted">
+            <span>READING DESK</span>
+            <span>BOOK / PAPER</span>
+          </div>
+          <h3 class="font-serif text-2xl">案头阅读</h3>
+          <p class="text-sm text-muted leading-relaxed">
+            {siteConfig.nowSlice.reading}
+          </p>
+          <p class="text-xs font-mono text-ink pt-1">
+            关注议题：{siteConfig.nowSlice.exploring}
+          </p>
+        </div>
+
+        <!-- Card 3: By the Numbers -->
+        <div class="border border-rule bg-surface p-6 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between font-mono text-xs text-muted">
+            <span>KEY METRICS</span>
+            <span>CUMULATIVE</span>
+          </div>
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            {
+              siteConfig.nowSlice.metrics.map((m) => (
+                <div class="border-l border-rule pl-3">
+                  <div class="editorial-display text-2xl sm:text-3xl text-ink">
+                    {m.value}
+                  </div>
+                  <div class="text-xs text-muted mt-1">{m.label}</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: COLOPHON & CONTACT FOOTER
+         ========================================================= -->
+    <footer id="contact" class="py-16 sm:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end pb-16 border-b border-rule">
+        <div class="lg:col-span-8 space-y-4">
+          <p class="font-mono text-xs text-cobalt">COLOPHON &amp; INQUIRIES</p>
+          <h2 class="editorial-display text-5xl sm:text-7xl leading-none">
+            有好的想法或合作？<br />
+            <span class="italic font-normal text-cobalt">随时来信交流。</span>
+          </h2>
+          <p class="text-muted text-base sm:text-lg max-w-xl pt-2">
+            无论是探讨独立产品设计、技术咨询、开源协作，还是单纯聊聊排版与工具流，都欢迎发邮件或在社交网络上找到我。
+          </p>
+        </div>
+
+        <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+          <button
+            type="button"
+            onclick={`window.copySiteEmail('${siteConfig.email}')`}
+            class="px-6 py-4 bg-ink text-paper font-mono text-sm font-medium hover:bg-cobalt hover:text-white transition-colors text-left flex items-center justify-between"
+          >
+            <span>复制邮箱：{siteConfig.email}</span>
+            <span>[COPY]</span>
+          </button>
+          <a
+            href={`mailto:${siteConfig.email}`}
+            class="px-6 py-4 border border-ink font-mono text-sm font-medium hover:bg-surface transition-colors flex items-center justify-between"
+          >
+            <span>直接打开邮件客户端</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Social Matrix & Edition Credits -->
+      <div class="pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-xs font-mono text-muted">
+        <div class="flex flex-wrap gap-6">
+          {
+            siteConfig.socials.map((s) => (
+              <a
+                href={s.url}
+                target={s.url.startsWith('http') ? '_blank' : undefined}
+                rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="hover:text-ink transition-colors"
+              >
+                <span class="text-ink font-medium">{s.label}</span> · {s.handle}
+              </a>
+            ))
+          }
+        </div>
+
+        <div>
+          TYPESET IN INSTRUMENT SERIF &amp; PLUS JAKARTA SANS · BUILT WITH ASTRO
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Client Interactivity for Identity Lens Switcher & Portfolio Filter -->
+  <script is:inline>
+    // 1. Hero Identity Lens Switcher
+    const lensTabs = document.querySelectorAll('.lens-tab');
+    const headlineEl = document.getElementById('hero-headline');
+    const manifestoEl = document.getElementById('hero-manifesto');
+    const highlightsEl = document.getElementById('hero-highlights');
+
+    lensTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        lensTabs.forEach((t) => t.setAttribute('aria-selected', 'false'));
+        tab.setAttribute('aria-selected', 'true');
+
+        const headline = tab.getAttribute('data-lens-headline');
+        const manifesto = tab.getAttribute('data-lens-manifesto');
+        const highlights = JSON.parse(tab.getAttribute('data-lens-highlights') || '[]');
+
+        if (headlineEl && manifestoEl && highlightsEl) {
+          headlineEl.style.opacity = '0.2';
+          manifestoEl.style.opacity = '0.2';
+
+          setTimeout(() => {
+            headlineEl.textContent = headline;
+            manifestoEl.textContent = manifesto;
+            highlightsEl.innerHTML = highlights
+              .map(
+                (tag) =>
+                  `<span class="font-mono text-xs px-2.5 py-1 border border-rule bg-paper text-ink">${tag}</span>`
+              )
+              .join('');
+            headlineEl.style.opacity = '1';
+            manifestoEl.style.opacity = '1';
+          }, 120);
+        }
+      });
+    });
+
+    // 2. Portfolio Category Filter
+    const filterBtns = document.querySelectorAll('.filter-pill');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+
+        const filter = btn.getAttribute('data-filter');
+        projectItems.forEach((item) => {
+          const cat = item.getAttribute('data-project-category');
+          if (filter === 'all' || cat === filter) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>

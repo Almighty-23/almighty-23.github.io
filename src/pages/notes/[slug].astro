@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig, type NoteItem } from '../../data/siteConfig';
+
+export function getStaticPaths() {
+  return siteConfig.notes.map((note, idx) => ({
+    params: { slug: note.slug },
+    props: {
+      note,
+      nextNote: siteConfig.notes[(idx + 1) % siteConfig.notes.length],
+    },
+  }));
+}
+
+interface Props {
+  note: NoteItem;
+  nextNote: NoteItem;
+}
+
+const { note, nextNote } = Astro.props;
+---
+
+<BaseLayout title={`${note.title} — ${siteConfig.nameCn}`} description={note.excerpt}>
+  <article class="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-20">
+    <!-- Top Back Navigation -->
+    <div class="pb-8 border-b border-rule flex items-center justify-between text-xs font-mono">
+      <a href="/#notes" class="hover:text-cobalt transition-colors flex items-center gap-2">
+        <span>← 返回期刊目录 / Back to Index</span>
+      </a>
+      <span class="text-muted">{note.category} · {note.readingTime}</span>
+    </div>
+
+    <!-- Article Header Spread -->
+    <header class="py-10 sm:py-14 border-b border-rule space-y-6">
+      <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-muted">
+        <span class="px-2.5 py-0.5 bg-surface border border-rule text-ink">
+          {note.category}
+        </span>
+        <time>{note.date}</time>
+        <span>·</span>
+        <span>BY {siteConfig.name} ({siteConfig.nameCn})</span>
+      </div>
+
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-tight">
+        {note.title}
+      </h1>
+
+      <p class="text-lg sm:text-xl text-muted max-w-3xl leading-relaxed">
+        {note.subtitle}
+      </p>
+    </header>
+
+    <!-- Editorial Two-Column Reading Layout (Marginalia + Main Prose) -->
+    <div class="py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <!-- Left 3 Cols: Marginalia / Metadata -->
+      <aside class="lg:col-span-3 space-y-6 text-xs font-mono text-muted border-b lg:border-b-0 lg:border-r border-rule pb-6 lg:pb-0 lg:pr-6">
+        <div>
+          <div class="text-ink font-medium mb-1">ABSTRACT / 摘要</div>
+          <p class="font-sans text-xs leading-relaxed text-muted">
+            {note.excerpt}
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-rule">
+          <div class="text-ink font-medium mb-1">ISSUE ARCHIVE</div>
+          <p>{siteConfig.issueNumber}</p>
+        </div>
+      </aside>
+
+      <!-- Right 9 Cols: Body Prose -->
+      <div class="lg:col-span-9 editorial-prose space-y-6 text-base sm:text-lg text-ink/90">
+        {
+          note.content.map((paragraph, index) => (
+            <p class={index === 0 ? 'first-letter:font-serif first-letter:text-5xl first-letter:float-left first-letter:mr-3 first-letter:leading-none first-letter:text-cobalt' : ''}>
+              {paragraph}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Next Article Footer -->
+    <footer class="mt-12 pt-10 border-t border-rule flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <p class="font-mono text-xs text-muted">NEXT IN THIS ISSUE · 下一篇札记</p>
+        <a
+          href={`/notes/${nextNote.slug}`}
+          class="font-serif text-2xl sm:text-3xl hover:text-cobalt transition-colors mt-1 inline-block"
+        >
+          {nextNote.title} →
+        </a>
+      </div>
+
+      <a
+        href="/"
+        class="px-4 py-2.5 border border-ink font-mono text-xs hover:bg-ink hover:text-paper transition-colors"
+      >
+        返回首页
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

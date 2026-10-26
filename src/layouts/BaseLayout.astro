@@ -1,0 +1,154 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../data/siteConfig';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${siteConfig.nameCn} (${siteConfig.name}) — Digital Monograph & Portfolio`,
+  description = siteConfig.identities[0].manifesto,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('edition-theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen paper-grain selection:bg-signal selection:text-ink">
+    <!-- Top Editorial Masthead -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-paper/90 border-b border-rule">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 h-14 flex items-center justify-between text-xs">
+        <!-- Left: Monogram & Issue -->
+        <div class="flex items-center gap-4">
+          <a
+            href="/"
+            class="font-mono font-medium tracking-tight text-sm px-2 py-0.5 bg-ink text-paper hover:bg-cobalt hover:text-white transition-colors"
+          >
+            {siteConfig.monogram}
+          </a>
+          <span class="hidden md:inline-block font-mono text-muted">
+            {siteConfig.issueNumber}
+          </span>
+        </div>
+
+        <!-- Center: Section Index -->
+        <nav aria-label="Primary Navigation" class="hidden sm:flex items-center gap-6 font-medium text-sm">
+          <a href="/#about" class="hover:text-cobalt transition-colors">序言 / Manifesto</a>
+          <a href="/#works" class="hover:text-cobalt transition-colors">作品 / Works</a>
+          <a href="/#notes" class="hover:text-cobalt transition-colors">札记 / Notes</a>
+          <a href="/#now" class="hover:text-cobalt transition-colors">当下 / Now</a>
+          <a href="/#contact" class="hover:text-cobalt transition-colors">联络 / Colophon</a>
+        </nav>
+
+        <!-- Right: Live Clock & Edition Switcher -->
+        <div class="flex items-center gap-3">
+          <div class="hidden lg:flex items-center gap-1.5 font-mono text-muted border-r border-rule pr-3">
+            <span>{siteConfig.location}</span>
+            <span id="live-clock" class="text-ink font-medium">--:--:--</span>
+          </div>
+
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="切换日间纸本版与夜间石印版"
+            class="font-mono text-xs px-2.5 py-1 border border-rule bg-surface hover:border-ink transition-colors flex items-center gap-1.5"
+          >
+            <span class="w-2 h-2 rounded-full bg-cobalt dark:bg-signal inline-block"></span>
+            <span id="theme-label">纸本版 · DAY</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- Global Toast for Copy Action -->
+    <div
+      id="copy-toast"
+      role="status"
+      aria-live="polite"
+      class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-200 bg-ink text-paper px-4 py-2.5 text-sm font-mono border border-rule shadow-lg flex items-center gap-2"
+    >
+      <span class="w-2 h-2 rounded-full bg-[#D8FF38]"></span>
+      <span id="copy-toast-text">已复制邮箱地址</span>
+    </div>
+
+    <script is:inline>
+      // Live clock ticker
+      function updateClock() {
+        const el = document.getElementById('live-clock');
+        if (!el) return;
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // Theme toggle (Day Paper vs Night Litho)
+      const toggleBtn = document.getElementById('theme-toggle');
+      const themeLabel = document.getElementById('theme-label');
+
+      function syncThemeLabel() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (themeLabel) {
+          themeLabel.textContent = isDark ? '石印版 · NIGHT' : '纸本版 · DAY';
+        }
+      }
+      syncThemeLabel();
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('edition-theme', isDark ? 'dark' : 'light');
+          syncThemeLabel();
+        });
+      }
+
+      // Global copy email helper
+      window.copySiteEmail = function (email) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(email);
+        }
+        const toast = document.getElementById('copy-toast');
+        const toastText = document.getElementById('copy-toast-text');
+        if (toast && toastText) {
+          toastText.textContent = `已复制邮箱：${email}`;
+          toast.classList.remove('opacity-0', 'translate-y-2');
+          toast.classList.add('opacity-100', 'translate-y-0');
+          setTimeout(() => {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-2');
+          }, 2400);
+        }
+      };
+    </script>
+  </body>
+</html>

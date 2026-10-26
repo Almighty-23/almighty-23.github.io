@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-paper: #F7F6F2;
+  --bg-surface: #EEECE5;
+  --text-ink: #141413;
+  --text-muted: #65635D;
+  --border-rule: #DAD6CC;
+  --accent-cobalt: #1D39C4;
+  --accent-signal: #D8FF38;
+  --signal-ink: #141413;
+}
+
+html.dark {
+  --bg-paper: #0D0F12;
+  --bg-surface: #15181E;
+  --text-ink: #F3F1EC;
+  --text-muted: #9498A1;
+  --border-rule: #252932;
+  --accent-cobalt: #708DFF;
+  --accent-signal: #D8FF38;
+  --signal-ink: #0D0F12;
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background-color: var(--accent-signal);
+    color: #141413;
+  }
+}
+
+/* Subtle paper grain overlay */
+.paper-grain {
+  background-image: radial-gradient(rgba(20, 20, 19, 0.055) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+html.dark .paper-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+}
+
+/* Editorial typography helpers */
+.editorial-display {
+  font-family: 'Instrument Serif', 'Noto Serif SC', Georgia, serif;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.editorial-prose p {
+  max-width: 68ch;
+  line-height: 1.85;
+}
+
+/* Tactile button & card transitions */
+.lens-tab[aria-selected="true"] {
+  background-color: var(--text-ink);
+  color: var(--bg-paper);
+  border-color: var(--text-ink);
+}
+
+.filter-pill[aria-pressed="true"] {
+  background-color: var(--accent-cobalt);
+  color: #FFFFFF;
+  border-color: var(--accent-cobalt);
+}
+
+html.dark .filter-pill[aria-pressed="true"] {
+  background-color: var(--accent-signal);
+  color: #0D0F12;
+  border-color: var(--accent-signal);
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: 0.75; }
+}
+
+.status-dot {
+  animation: pulse-subtle 2.4s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .status-dot {
+    animation: none;
+  }
+}
