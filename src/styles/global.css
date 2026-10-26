@@ -8,125 +8,139 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #EEF1F6;
+    color: #1E293B;
+  }
+
+  ::selection {
+    background-color: #0F172A;
+    color: #FFFFFF;
   }
 }
 
 /* ==========================================================================
-   BENTO VARIANT 1: WARM CLAY & PINE (暖陶松林 — 温润实体白卡)
+   FROSTED GLASS & AURA BENTO (柔雾毛玻璃与弥散环境光)
    ========================================================================== */
-.bento-v1-bg {
-  background-color: #ECE9E2;
-  color: #161615;
+.aura-bg {
+  background-color: #EEF1F6;
+  background-image:
+    radial-gradient(at 12% 12%, rgba(255, 182, 145, 0.38) 0px, transparent 48%),
+    radial-gradient(at 88% 18%, rgba(147, 197, 253, 0.42) 0px, transparent 50%),
+    radial-gradient(at 52% 88%, rgba(167, 243, 208, 0.34) 0px, transparent 55%);
+  background-attachment: fixed;
 }
 
-.bento-v1-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(22, 22, 21, 0.06);
-  border-radius: 28px;
-  box-shadow: 0 2px 8px -2px rgba(22, 22, 21, 0.04), 0 14px 34px -10px rgba(22, 22, 21, 0.06);
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+.glass-card {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: 30px;
+  box-shadow:
+    0 4px 16px -4px rgba(15, 23, 42, 0.04),
+    0 16px 40px -12px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.bento-v1-card:hover {
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.82);
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px -4px rgba(22, 22, 21, 0.07), 0 22px 44px -12px rgba(22, 22, 21, 0.08);
+  box-shadow:
+    0 10px 26px -6px rgba(15, 23, 42, 0.06),
+    0 24px 48px -12px rgba(15, 23, 42, 0.08);
 }
 
-.bento-v1-slot {
-  border: 1.5px dashed #CFCBC0;
+.glass-slot {
+  border: 1.5px dashed rgba(100, 116, 139, 0.28);
   border-radius: 22px;
-  background: #F8F6F2;
+  background: rgba(255, 255, 255, 0.42);
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.bento-v1-slot:hover {
-  border-color: #0F5243;
-  background: #F2EFE9;
+.glass-slot:hover {
+  border-color: rgba(15, 23, 42, 0.35);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================================================
-   BENTO VARIANT 2: OBSIDIAN DARK (曜石暗夜 — Linear / Raycast 精密暗黑)
+   MARKDOWN ARTICLE PROSE STYLING (随笔与文章正文排版)
    ========================================================================== */
-.bento-v2-bg {
-  background-color: #090A0D;
-  background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.07), transparent 55%);
-  color: #F1F5F9;
-}
-
-.bento-v2-card {
-  background: #12141A;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 22px;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 12px 30px -10px rgba(0, 0, 0, 0.6);
-  transition: border-color 0.25s ease, transform 0.25s ease;
-}
-
-.bento-v2-card:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateY(-2px);
-}
-
-.bento-v2-slot {
-  border: 1px dashed rgba(255, 255, 255, 0.14);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* ==========================================================================
-   BENTO VARIANT 3: NORDIC PURE GALLERY (极简纯白画廊 — 侧边目录 + 极净矩阵)
-   ========================================================================== */
-.bento-v3-bg {
-  background-color: #F6F7F9;
-  color: #111315;
-}
-
-.bento-v3-card {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 20px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.bento-v3-card:hover {
-  border-color: #111315;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.05);
-}
-
-.bento-v3-slot {
-  border: 1px dashed #D1D5DB;
-  border-radius: 14px;
-  background: #FAFAFB;
-}
-
-/* ==========================================================================
-   BENTO VARIANT 4: FROSTED GLASS & AURA (柔雾毛玻璃 — 弥散光斑 + 半透明磁贴)
-   ========================================================================== */
-.bento-v4-bg {
-  background-color: #EEF1F6;
-  background-image:
-    radial-gradient(at 15% 15%, rgba(255, 182, 145, 0.35) 0px, transparent 50%),
-    radial-gradient(at 85% 20%, rgba(147, 197, 253, 0.4) 0px, transparent 50%),
-    radial-gradient(at 50% 85%, rgba(167, 243, 208, 0.32) 0px, transparent 55%);
+.article-prose {
+  font-size: 1.05rem;
+  line-height: 1.9;
   color: #1E293B;
 }
 
-.bento-v4-card {
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 32px;
-  box-shadow: 0 8px 32px -8px rgba(30, 41, 59, 0.06);
-  transition: transform 0.25s ease, background-color 0.25s ease;
+.article-prose h1,
+.article-prose h2,
+.article-prose h3 {
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  line-height: 1.35;
 }
 
-.bento-v4-card:hover {
-  background: rgba(255, 255, 255, 0.82);
-  transform: translateY(-2px);
+.article-prose h2 {
+  font-size: 1.45rem;
 }
 
-.bento-v4-slot {
-  border: 1.5px dashed rgba(100, 116, 139, 0.28);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.4);
+.article-prose h3 {
+  font-size: 1.2rem;
+}
+
+.article-prose p {
+  margin-bottom: 1.35em;
+}
+
+.article-prose blockquote {
+  border-left: 3px solid #0F172A;
+  padding: 0.6rem 1.2rem;
+  margin: 1.5rem 0;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 0 16px 16px 0;
+  color: #475569;
+}
+
+.article-prose ul,
+.article-prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.35em;
+}
+
+.article-prose ul {
+  list-style-type: disc;
+}
+
+.article-prose ol {
+  list-style-type: decimal;
+}
+
+.article-prose code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: rgba(15, 23, 42, 0.06);
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+}
+
+.article-prose pre {
+  background: #0F172A;
+  color: #F8FAFC;
+  padding: 1.25rem;
+  border-radius: 18px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.article-prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.article-prose a {
+  color: #2563EB;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
