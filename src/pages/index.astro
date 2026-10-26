@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/siteConfig';
 
 const defaultLens = siteConfig.identities[0];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout>
@@ -433,7 +434,7 @@ const defaultLens = siteConfig.identities[0];
           {
             siteConfig.notes.map((note) => (
               <article class="py-7 group">
-                <a href={`/notes/${note.slug}`} class="block space-y-3">
+                <a href={`${base}/notes/${note.slug}`} class="block space-y-3">
                   <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-muted">
                     <div class="flex items-center gap-2.5">
                       <span class="px-2 py-0.5 bg-surface border border-rule text-ink font-medium">

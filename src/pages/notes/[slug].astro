@@ -18,13 +18,14 @@ interface Props {
 }
 
 const { note, nextNote } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title={`${note.title} — ${siteConfig.nameCn}`} description={note.excerpt}>
   <article class="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-20">
     <!-- Top Back Navigation -->
     <div class="pb-8 border-b border-rule flex items-center justify-between text-xs font-mono">
-      <a href="/#notes" class="hover:text-cobalt transition-colors flex items-center gap-2">
+      <a href={`${base}/#notes`} class="hover:text-cobalt transition-colors flex items-center gap-2">
         <span>← 返回期刊目录 / Back to Index</span>
       </a>
       <span class="text-muted">{note.category} · {note.readingTime}</span>
@@ -84,7 +85,7 @@ const { note, nextNote } = Astro.props;
       <div>
         <p class="font-mono text-xs text-muted">NEXT IN THIS ISSUE · 下一篇札记</p>
         <a
-          href={`/notes/${nextNote.slug}`}
+          href={`${base}/notes/${nextNote.slug}`}
           class="font-serif text-2xl sm:text-3xl hover:text-cobalt transition-colors mt-1 inline-block"
         >
           {nextNote.title} →
@@ -92,7 +93,7 @@ const { note, nextNote } = Astro.props;
       </div>
 
       <a
-        href="/"
+        href={`${base}/`}
         class="px-4 py-2.5 border border-ink font-mono text-xs hover:bg-ink hover:text-paper transition-colors"
       >
         返回首页
