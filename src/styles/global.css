@@ -91,11 +91,66 @@ html.dark .filter-pill[aria-pressed="true"] {
   animation: pulse-subtle 2.4s infinite ease-in-out;
 }
 
+/* Style 2: Bento Tactile Cards */
+.bento-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 20, 19, 0.07);
+  border-radius: 26px;
+  box-shadow: 0 2px 10px -2px rgba(20, 20, 19, 0.04), 0 12px 32px -8px rgba(20, 20, 19, 0.05);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px -4px rgba(20, 20, 19, 0.08), 0 20px 40px -12px rgba(20, 20, 19, 0.08);
+}
+
+/* Style 3: Terminal CRT & Cursor */
+@keyframes blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  background-color: #FFB000;
+  vertical-align: text-bottom;
+  animation: blink-cursor 1s infinite;
+}
+
+.terminal-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.22) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Style 4: Avant-Garde Poster Marquee */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.poster-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+
+.poster-shadow {
+  box-shadow: 6px 6px 0px #141413;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .status-dot {
+  .status-dot,
+  .terminal-cursor,
+  .poster-marquee {
     animation: none;
   }
 }
